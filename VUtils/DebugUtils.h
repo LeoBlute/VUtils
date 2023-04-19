@@ -1,5 +1,4 @@
 #pragma once
-
 #include "TimeUtils.h"
 #include <iostream>
 #include <type_traits>
@@ -8,7 +7,7 @@
 
 namespace DebugUtils {
     template <typename T>
-    static void Log(T& msg, const char* additional, bool toFile)
+    static void Log(T msg, const char* additional, bool toFile)
     {
         //final message that will appear
         std::string fmsg;
@@ -18,9 +17,14 @@ namespace DebugUtils {
         TimeUtils::GetDateToStr(fmsg); //date
         fmsg.append(additional); //type
 
-        //if variable can be printed
-        if constexpr (std::is_arithmetic_v<T> || std::is_same_v<T, std::string> || std::is_same_v<T, const char*> || std::is_same_v<T, char*> ||
-            std::is_array_v<T> && std::is_same_v<std::remove_extent_t<T>, const char> || std::is_array_v<T> && std::is_same_v<std::remove_extent_t<T>, char>)
+        //checks if the variable is loggable
+        if constexpr (std::is_arithmetic_v<T>) //if variable is arithmetic
+        {
+            fmsg.append(std::to_string(msg));
+        }
+        else if constexpr (std::is_same_v<T, std::string> || std::is_same_v<T, const char*> || std::is_same_v<T, char*> ||
+            std::is_array_v<T> && std::is_same_v<std::remove_extent_t<T>, const char> ||
+            std::is_array_v<T> && std::is_same_v<std::remove_extent_t<T>, char>) //if variable is not arithmetic but is still loggable
         {
             fmsg.append(msg);
         }
@@ -30,7 +34,7 @@ namespace DebugUtils {
         }
         else //if variable can not be printed
         {
-            fmsg.append("Non printable variable variable not log variable");
+            fmsg.append("Non loggable variable");
         }
 
         //if toFile is true it will write the log to a new file

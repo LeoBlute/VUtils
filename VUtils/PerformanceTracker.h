@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <memory_resource>
+#include <chrono>
 
 inline static bool gMemtrack = 0;
 inline static unsigned int gAllocated = 0;
@@ -8,15 +9,11 @@ inline static unsigned int gAllocatedCount = 0;
 inline static unsigned int gDeleted = 0;
 inline static unsigned int gDeletedCount = 0;
 
-inline void EnableMemoryTracking()
-{
-    gMemtrack = 1;
-}
+inline static std::chrono::steady_clock::time_point gStartTimeTracker = std::chrono::steady_clock::now();
 
-inline void DisableMemoryTracking()
-{
-    gMemtrack = 0;
-}
+inline void EnableMemoryTracking() { gMemtrack = 1; };
+
+inline void DisableMemoryTracking() { gMemtrack = 0; };
 
 inline void ResetMemoryTacking()
 {
@@ -32,6 +29,18 @@ inline void PrintMemory()
     std::cout << "Count     : " << gAllocatedCount << std::endl;
     std::cout << "Deleted   : " << gDeleted << std::endl;
     std::cout << "Count     : " << gDeletedCount << std::endl;
+}
+
+inline void ResetTimeTracking()
+{
+    gStartTimeTracker = std::chrono::steady_clock::now();
+}
+
+inline void PrintTimeTracking()
+{
+    std::chrono::steady_clock::time_point now = std::chrono::steady_clock::now();
+    double duration = std::chrono::duration_cast<std::chrono::microseconds>(now - gStartTimeTracker).count();
+    std::cout << "Time:" << duration << "ms" << std::endl;
 }
 
 void* operator new(size_t size)

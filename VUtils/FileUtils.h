@@ -1,7 +1,5 @@
 #pragma once
-
 #include "DebugUtils.h"
-#include <fstream>
 
 namespace FileUtils {
     //Load content of a file to a char* and returns it
@@ -30,7 +28,7 @@ namespace FileUtils {
 
         return buffer;
     }
-
+    
     //Load content of a file to a std::string and returns it
     std::string StrReadFile(const char* path)
     {
@@ -55,5 +53,39 @@ namespace FileUtils {
         file.close();
 
         return data;
+    }
+
+    bool CreateFile(const char* path)
+    {
+        std::ofstream file;
+        file.open(path, std::ios::out | std::ios::app);
+        if (!file.is_open())
+        {
+            return 0;
+        }
+        file.close();
+        return 1;
+    }
+
+    bool CPWriteToFile(const char* path, const char* data)
+    {
+        std::ofstream file(path, std::ios::binary);
+        if (!file.is_open()) {
+            return 0;
+        }
+        file.write(data, strlen(data));
+        file.close();
+        return 1;
+    }
+
+    bool StrWriteToFile(const char* path, const std::string& data)
+    {
+        std::ofstream file(path, std::ios::binary);
+        if (!file.is_open()) {
+            return 0;
+        }
+        file.write(data.c_str(), strlen(data.c_str()));
+        file.close();
+        return 1;
     }
 }
