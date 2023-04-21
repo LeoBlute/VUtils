@@ -1,10 +1,12 @@
 #pragma once
 #include <vector>
 
+//.. Args = arguments
 template<typename... Args>
 class Event
 {
 public:
+    //Function with the arguments
     using Function = void (*)(Args...);
 
     Event& operator+=(const Function func)
@@ -52,5 +54,6 @@ public:
 
     inline const std::vector<Function>& GetFunctions() { return mFunctions; };
 private:
+    //Holder of all functions in event
     std::vector<Function> mFunctions;
 };

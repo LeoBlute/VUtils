@@ -55,18 +55,27 @@ namespace FileUtils {
         return data;
     }
 
+    //*Self explanatory
+    //*the path must also include the file name and extension
+    //*return true if file could be created
     bool CreateFile(const char* path)
     {
+        //File
         std::ofstream file;
+        //File opened/created
         file.open(path, std::ios::out | std::ios::app);
         if (!file.is_open())
         {
             return 0;
         }
+        //File closed
         file.close();
         return 1;
     }
 
+    //*Write the data from a const char* or char* to a file
+    //*the path must also include the file name and extension
+    //*return true if file can be opened/exists
     bool CPWriteToFile(const char* path, const char* data)
     {
         std::ofstream file(path, std::ios::binary);
@@ -78,6 +87,9 @@ namespace FileUtils {
         return 1;
     }
 
+    //*Write the data from a std::string to a file
+    //*the path must also include the file name and extension
+    //*return true if file can be opened/exists
     bool StrWriteToFile(const char* path, const std::string& data)
     {
         std::ofstream file(path, std::ios::binary);

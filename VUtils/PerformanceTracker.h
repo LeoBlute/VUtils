@@ -3,12 +3,17 @@
 #include <memory_resource>
 #include <chrono>
 
+//*Determines if should track the amount of memory allocated
+//*Enabled on EnableMemoryTracking()
+//*Disabled on DisableMemoryTracking()
 inline static bool gMemtrack = 0;
-inline static unsigned int gAllocated = 0;
-inline static unsigned int gAllocatedCount = 0;
-inline static unsigned int gDeleted = 0;
-inline static unsigned int gDeletedCount = 0;
+inline static unsigned int gAllocated = 0; //The amount of memory allocated
+inline static unsigned int gAllocatedCount = 0; //The amount of times a memory allocation happened
+inline static unsigned int gDeleted = 0; //The amount of memory deleted
+inline static unsigned int gDeletedCount = 0; //The amount of times a memory deletion happened
 
+//*Gets the current time at start
+//*Gets a new current time on ResetTimeTracking()
 inline static std::chrono::steady_clock::time_point gStartTimeTracker = std::chrono::steady_clock::now();
 
 inline void EnableMemoryTracking() { gMemtrack = 1; };

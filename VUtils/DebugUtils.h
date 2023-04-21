@@ -73,7 +73,7 @@ namespace DebugUtils {
 }
 
 #ifdef DEBUG
-    //Print to console only
+    //Log to console only
     #define DEBUG_INFO(MSG) DebugUtils::Log(MSG, "-Info:", false);
     #define DEBUG_WARN(MSG) DebugUtils::Log(MSG, "-Warning:", false);
     #define DEBUG_CRIT(MSG) DebugUtils::Log(MSG, "-Critical:", false);
@@ -81,7 +81,7 @@ namespace DebugUtils {
     __debugbreak();
     #define DEBUG_TODO(MSG) DebugUtils::Log(MSG, "-TODO:", false);
     
-    //Print to console and write to file
+    //Log to console and write to file
     #define DEBUG_FILE_INFO(MSG) DebugUtils::Log(MSG, "-Info:", true);
     #define DEBUG_FILE_WARN(MSG) DebugUtils::Log(MSG, "-Warning:", true);
     #define DEBUG_FILE_CRIT(MSG) DebugUtils::Log(MSG, "-Critical:", true);
@@ -90,14 +90,14 @@ namespace DebugUtils {
     #define DEBUG_FILE_TODO(MSG) DebugUtils::Log(MSG, "-TODO:", true);
 
 #else
-//Print to console only
+//Log to console only
     #define DEBUG_INFO(MSG)
     #define DEBUG_WARN(MSG)
     #define DEBUG_CRIT(MSG)
     #define DEBUG_ERROR(MSG)
     #define DEBUG_TODO(MSG)
 
-//Print to console and write to file
+//Log to console and write to file
     #define DEBUG_FILE_INFO(MSG) 
     #define DEBUG_FILE_WARN(MSG) 
     #define DEBUG_FILE_CRIT(MSG)
