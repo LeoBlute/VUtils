@@ -3,7 +3,7 @@
 
 namespace FileUtils {
     //Load content of a file to a char* and returns it
-    char* CPReadFile(const char* path)
+    static char* CPReadFile(const char* path)
     {
         std::ifstream file(path, std::ios::binary);
         if (!file.is_open()) {
@@ -30,7 +30,7 @@ namespace FileUtils {
     }
     
     //Load content of a file to a std::string and returns it
-    std::string StrReadFile(const char* path)
+    static std::string StrReadFile(const char* path)
     {
         std::ifstream file(path, std::ios::binary);
         if (!file.is_open()) {
@@ -58,7 +58,7 @@ namespace FileUtils {
     //*Self explanatory
     //*the path must also include the file name and extension
     //*return true if file could be created
-    bool CreateFile(const char* path)
+    static bool CreateFile(const char* path)
     {
         //File
         std::ofstream file;
@@ -76,7 +76,7 @@ namespace FileUtils {
     //*Write the data from a const char* or char* to a file
     //*the path must also include the file name and extension
     //*return true if file can be opened/exists
-    bool CPWriteToFile(const char* path, const char* data)
+    static bool CPWriteToFile(const char* path, const char* data)
     {
         std::ofstream file(path, std::ios::binary);
         if (!file.is_open()) {
@@ -90,7 +90,7 @@ namespace FileUtils {
     //*Write the data from a std::string to a file
     //*the path must also include the file name and extension
     //*return true if file can be opened/exists
-    bool StrWriteToFile(const char* path, const std::string& data)
+    static bool StrWriteToFile(const char* path, const std::string& data)
     {
         std::ofstream file(path, std::ios::binary);
         if (!file.is_open()) {

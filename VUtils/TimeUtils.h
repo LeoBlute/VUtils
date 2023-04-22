@@ -4,7 +4,7 @@
 
 namespace TimeUtils {
 	//Complete date
-	const std::string GetDate()
+	static const std::string GetDate()
 	{
 		time_t t0 = time(0);
 		char str[26];
@@ -15,7 +15,7 @@ namespace TimeUtils {
 	}
 
 	//Complete date directly appended to a std::string for performance purposes
-	void GetDateToStr(std::string& str)
+	static void GetDateToStr(std::string& str)
 	{
 		time_t t0 = time(0);
 		char cstr[26];
@@ -25,7 +25,7 @@ namespace TimeUtils {
 	}
 
 	//Year
-	const int GetYear()
+	static const int GetYear()
 	{
 		time_t tNow = time(0);
 
@@ -36,7 +36,7 @@ namespace TimeUtils {
 	}
 
 	//Month
-	const int GetMonth()
+	static const int GetMonth()
 	{
 		time_t tNow = time(0);
 
@@ -47,7 +47,7 @@ namespace TimeUtils {
 	}
 
 	//Hour
-	const int GetHour()
+	static const int GetHour()
 	{
 		time_t tNow = time(0);
 
@@ -58,7 +58,7 @@ namespace TimeUtils {
 	}
 
 	//Day of the month
-	const int GetMonthDay()
+	static const int GetMonthDay()
 	{
 		time_t tNow = time(0);
 
@@ -69,7 +69,7 @@ namespace TimeUtils {
 	}
 
 	//Day of the year
-	const int GetYearDay()
+	static const int GetYearDay()
 	{
 		time_t tNow = time(0);
 
@@ -80,7 +80,7 @@ namespace TimeUtils {
 	}
 
 	//Current minutes of the hour
-	const int GetMinutes()
+	static const int GetMinutes()
 	{
 		time_t tNow = time(0);
 
@@ -91,7 +91,7 @@ namespace TimeUtils {
 	}
 
 	//Current seconds of the minute
-	const int GetSeconds()
+	static const int GetSeconds()
 	{
 		time_t tNow = time(0);
 
