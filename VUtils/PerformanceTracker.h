@@ -36,6 +36,12 @@ inline void PrintMemory()
     std::cout << "Count     : " << gDeletedCount << std::endl;
 }
 
+template<typename T>
+inline void PrintMemorySizeOf(const char* name, T item)
+{
+    std::cout << "Memory size of " << name << ":" << sizeof(item) << std::endl;
+}
+
 inline void ResetTimeTracking()
 {
     gStartTimeTracker = std::chrono::steady_clock::now();
@@ -48,7 +54,7 @@ inline void PrintTimeTracking()
     std::cout << "Time:" << duration << "ms" << std::endl;
 }
 
-void* operator new(size_t size)
+inline void* operator new(size_t size)
 {
     if (gMemtrack)
     {
@@ -59,7 +65,7 @@ void* operator new(size_t size)
     return malloc(size);
 }
 
-void operator delete(void* memory, size_t size)
+inline void operator delete(void* memory, size_t size)
 {
     if (gMemtrack)
     {
