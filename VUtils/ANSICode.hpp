@@ -1,7 +1,7 @@
+#pragma once
+
 #include <cstdio>
 #include <cstring>
-
-
 
 enum ANSICode{
     Reset = 0,
@@ -58,7 +58,7 @@ enum ANSICode{
     BackgroundBrightWhite = 107
 };
 
-const char* ANSICodeToCStr(ANSICode code)
+static inline const char* ANSICodeToCStr(ANSICode code)
 {
     unsigned int _code = static_cast<unsigned int>(code);
     static char escapeSequence[32];
@@ -67,7 +67,7 @@ const char* ANSICodeToCStr(ANSICode code)
 }
 
 template<typename ...Codes>
-const char* ANSICodesToCStr(Codes... codes) {
+static inline const char* ANSICodesToCStr(Codes... codes) {
     ANSICode _codes[] = { codes... };
     size_t codes_count = sizeof(_codes) / sizeof(_codes[0]);
     if (codes_count == 0) {
