@@ -1,10 +1,12 @@
 #pragma once
 #include "TimeUtils.hpp"
+#include "ANSICode.hpp"
 #include <iostream>
-#include <type_traits>
 #include <filesystem>
 #include <fstream>
 #include <ostream>
+
+
 
 namespace DebugUtils {
     template<typename T>
@@ -23,7 +25,7 @@ namespace DebugUtils {
     }
 
     template <typename... Args>
-    static void Log(bool toFile, Args... msg)
+    static void Log(bool toFile, ANSICode ansiCode, Args... msg)
     {
         //final message that will appear
         std::string fmsg;
@@ -64,24 +66,24 @@ namespace DebugUtils {
         }
 
         //Log final message to console
-        std::cout << fmsg << std::endl;
+        std::cout << ANSICodeToCStr(ansiCode) << fmsg << ANSICodeToCStr(ANSICode::Reset) << std::endl;
     }
 }
 
 #ifdef DEBUG
     //Log to console only
-    #define DEBUG_INFO(...) DebugUtils::Log(false, "-Info:", __VA_ARGS__);
-    #define DEBUG_WARN(...) DebugUtils::Log(false, "-Warning:", __VA_ARGS__);
-    #define DEBUG_ERROR(...) DebugUtils::Log(false, "-Error:", __VA_ARGS__);\
+    #define DEBUG_INFO(...) DebugUtils::Log(false, ANSICode::Reset, "-Info:", __VA_ARGS__);
+    #define DEBUG_WARN(...) DebugUtils::Log(false, ANSICode::BrightYellow,"-Warning:", __VA_ARGS__);
+    #define DEBUG_ERROR(...) DebugUtils::Log(false, ANSICode::BrightRed, "-Error:", __VA_ARGS__);\
     __debugbreak();
-    #define DEBUG_TODO(...) DebugUtils::Log(false, "-TODO:", __VA_ARGS__);
+    #define DEBUG_TODO(...) DebugUtils::Log(false, ANSICode::Reset, "-TODO:", __VA_ARGS__);
     
     //Log to console and write to file
-    #define DEBUG_FILE_INFO(...) DebugUtils::Log(true, "-Info:", __VA_ARGS__);
-    #define DEBUG_FILE_WARN(...) DebugUtils::Log(true, "-Warning:", __VA_ARGS__);
-    #define DEBUG_FILE_ERROR(...) DebugUtils::Log(true, "-Erro:", __VA_ARGS__);\
+    #define DEBUG_FILE_INFO(...) DebugUtils::Log(true, ANSICode::Reset, "-Info:", __VA_ARGS__);
+    #define DEBUG_FILE_WARN(...) DebugUtils::Log(true, ANSICode::BrightYellow, "-Warning:", __VA_ARGS__);
+    #define DEBUG_FILE_ERROR(...) DebugUtils::Log(true, ANSICode::BrightRed, "-Erro:", __VA_ARGS__);\
     __debugbreak();
-    #define DEBUG_FILE_TODO(...) DebugUtils::Log(true, "-TODO:", __VA_ARGS__);
+    #define DEBUG_FILE_TODO(...) DebugUtils::Log(true, ANSICode::Reset, "-TODO:", __VA_ARGS__);
 
 #else
 //Log to console only
